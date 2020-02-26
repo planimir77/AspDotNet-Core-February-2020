@@ -1,0 +1,22 @@
+﻿@model FDMC.Web.Models.Cats.CatDetailsViewModel
+@{
+    ViewData["Title"] = $"Cat {Model.Name}";
+}
+<div>
+    <h1>
+        @Model.Name
+    </h1>
+</div>
+<div>
+    <img src="@Model.Image" class="rangoliPic"/>
+</div>
+
+<div>
+    @Model.Age
+</div>
+<div>
+    @Model.Breed
+</div>
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to List</a>
+</div>
