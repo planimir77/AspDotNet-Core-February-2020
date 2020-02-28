@@ -17,6 +17,7 @@ namespace FDMC.Web
 {
     public class Startup
     {
+        private string _connectionString = null;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,7 +31,11 @@ namespace FDMC.Web
             services.AddTransient<ICreateCatService, CreateCatService>();
             services.AddTransient<IGetAllCatsService, GetAllCatsService>();
             services.AddTransient<ICatDetailsServices, CatDetailsServices>();
-            services.AddDbContext<CatDbContext>();
+            services.AddDbContext<CatDbContext>(options =>
+                options
+                .UseSqlServer(Configuration
+                    .GetConnectionString("DefaultConnection")));
+            _connectionString = Configuration["ConnectionStrings:SecretConnection"];
             services.AddControllersWithViews();
         }
 
@@ -41,7 +46,7 @@ namespace FDMC.Web
             {
                 app.UseDeveloperExceptionPage();
                 //db.Database.Migrate();
-                
+
             }
             else
             {
